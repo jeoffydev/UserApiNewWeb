@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UserApiNewWeb.Models;
 
 namespace UserApiNewWeb.Controllers
 {
@@ -15,9 +16,10 @@ namespace UserApiNewWeb.Controllers
 
         [Route("api/register")]
         [HttpPost]
-        public async Task<IActionResult> Register()
+        public async Task<IActionResult> Register(RegisterViewModel register)
         {
-            return Ok("This is the API");
+
+            return Ok(register);
         }
     }
 }
