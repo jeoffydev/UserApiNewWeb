@@ -14,6 +14,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using UserApiNewWeb.Data;
 using UserApiNewWeb.Jwt;
+using UserApiNewWeb.Repository;
+using UserApiNewWeb.Repository.IRepository;
+using AutoMapper;
+using UserApiNewWeb.Mapper;
 
 namespace UserApiNewWeb
 {
@@ -77,9 +81,12 @@ namespace UserApiNewWeb
                      ValidateAudience = false
 
                  };
-             }); 
+             });
             //Configure JWT Authentication
 
+            services.AddScoped<IAccountRepository, AccountService>();
+            services.AddScoped<IStoryRepository, StoryService>();
+            services.AddAutoMapper(typeof(Mapping));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
