@@ -16,5 +16,6 @@ namespace UserApiNewWeb.Data
         }
 
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<Story> Stories { get; set; }
     }
 }
