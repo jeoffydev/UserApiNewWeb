@@ -37,5 +37,12 @@ namespace UserApiNewWeb.Repository
 
              return user;
         }
+
+        public bool checkUsernameExist(string username)
+        {
+            bool val;
+            val = _context.ApplicationUsers.Any(u => u.UserName.ToLower().Trim() == username.ToLower().Trim());
+            return val;
+        }
     }
 }

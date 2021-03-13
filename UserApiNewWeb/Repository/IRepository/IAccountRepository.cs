@@ -9,6 +9,6 @@ namespace UserApiNewWeb.Repository.IRepository
     public interface IAccountRepository
     {
         ApplicationUser Login(ApplicationUser login);
-         
+        bool checkUsernameExist(string username);
     }
 }

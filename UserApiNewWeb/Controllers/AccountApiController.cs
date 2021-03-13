@@ -58,11 +58,17 @@ namespace UserApiNewWeb.Controllers
 
          [HttpPost]
          [Route("api/login")]
-         public async Task<ApplicationUser> Login([FromBody] LoginViewModel login)
+         public async Task<IActionResult> Login([FromBody] LoginViewModel login)
          {
             var appError = new ApplicationUser();
             appError.UserName = null;
             appError.Id = null;
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new { error = ModelState });
+            }
+
             if (ModelState.IsValid)
              {
 
@@ -73,16 +79,28 @@ namespace UserApiNewWeb.Controllers
                      var userDto = _imapper.Map<ApplicationUser>(login);
                      var user = _IaccountRepo.Login(userDto);
 
-                     //JWT
- 
-                     var tokenHandler = new JwtSecurityTokenHandler();
+                    //Get the role of the user
+
+                     //var roles = await _userManager.GetRolesAsync(user);
+                     if(await _userManager.IsInRoleAsync(user, "Admin")){
+                        user.Role = "Admin";
+                     }
+
+                    if (await _userManager.IsInRoleAsync(user, "User")){
+                        user.Role = "User";
+                    }
+
+                    //JWT
+
+                    var tokenHandler = new JwtSecurityTokenHandler();
                      var key = System.Text.Encoding.ASCII.GetBytes(_appsettings.Secret);
                      var tokenDescriptor = new Microsoft.IdentityModel.Tokens.SecurityTokenDescriptor()
                      {
                          Subject = new ClaimsIdentity(new Claim[] {
                              new Claim(ClaimTypes.Name, user.Id),
-                             new Claim(ClaimTypes.Email, user.UserName)
-                         }),
+                             new Claim(ClaimTypes.Email, user.UserName),
+                             new Claim(ClaimTypes.Role, user.Role)
+,                         }),
                          Expires = DateTime.UtcNow.AddHours(1),
                          SigningCredentials = new Microsoft.IdentityModel.Tokens.SigningCredentials(new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(key), Microsoft.IdentityModel.Tokens.SecurityAlgorithms.HmacSha256Signature)
                      };
@@ -92,17 +110,18 @@ namespace UserApiNewWeb.Controllers
 
                      //JWT  
 
-                     return user; 
+                     return Ok(user);
 
-                 }
-                 else
-                 {
-                     return appError;
-                 } 
+                }
+                else
+                {
+                    return BadRequest(new { error = "Username or password is invalid" });
+                }
+                
                 
             }
-            return appError;
-         }
+            return BadRequest(new { error = ModelState });
+        }
 
         [Route("api/register")]
         [HttpPost]
@@ -115,26 +134,46 @@ namespace UserApiNewWeb.Controllers
                 UserName = register.UserName,
                 FullName = register.FullName
             };
-
-            if (ModelState.IsValid)
+            
+            if (register.UserName == null || register.FullName == null || register.Password == null)
             {
-                /*if (!await _roleManager.RoleExistsAsync("Admin"))
-                {
-                    //create roles
-                    await _roleManager.CreateAsync(new IdentityRole("Admin"));
-                    await _roleManager.CreateAsync(new IdentityRole("User"));
-                }*/
-
-                var res = await _userManager.CreateAsync(reg, register.Password);
-                if (res.Succeeded)
-                {
-                    await _userManager.AddToRoleAsync(reg, "User");
-                    return Ok(reg);
-                }
-
-                return BadRequest(new { error = "2" });
+                return BadRequest(new { error = ModelState } );
             }
-            return BadRequest(new { error = "1" });
+          
+
+            if (!ModelState.IsValid)
+            {
+              
+
+                return BadRequest(new { error = ModelState });
+            }
+
+            if (_IaccountRepo.checkUsernameExist(register.UserName))
+            {
+                return BadRequest(new { error = "Username already exist!" });
+
+            }
+
+            /*if (!await _roleManager.RoleExistsAsync("Admin"))
+              {
+                  //create roles
+                  await _roleManager.CreateAsync(new IdentityRole("Admin"));
+                  await _roleManager.CreateAsync(new IdentityRole("User"));
+              }*/
+
+
+
+            var res = await _userManager.CreateAsync(reg, register.Password);
+            if (res.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(reg, "User");
+                return Ok(reg);
+            }
+
+
+          
+
+            return BadRequest(new { error = ModelState });
 
 
 

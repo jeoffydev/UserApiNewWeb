@@ -13,5 +13,8 @@ namespace UserApiNewWeb.Models
 
         [NotMapped]
         public string Token { get; set; }
+
+        [NotMapped]
+        public string Role { get; set; }
     }
 }
