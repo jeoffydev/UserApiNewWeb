@@ -60,7 +60,10 @@ namespace UserApiNewWeb.Controllers
          [Route("api/login")]
          public async Task<ApplicationUser> Login([FromBody] LoginViewModel login)
          {
-             if (ModelState.IsValid)
+            var appError = new ApplicationUser();
+            appError.UserName = null;
+            appError.Id = null;
+            if (ModelState.IsValid)
              {
 
                
@@ -94,11 +97,11 @@ namespace UserApiNewWeb.Controllers
                  }
                  else
                  {
-                     return null;
+                     return appError;
                  } 
                 
             }
-            return null;
+            return appError;
          }
 
         [Route("api/register")]

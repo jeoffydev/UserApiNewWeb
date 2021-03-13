@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace UserApiNewWeb.Controllers
             return Ok("Okay Story");
         }
 
-
+        [Authorize]
         [HttpGet]
         [Route("api/stories")]
         public List<StoryViewModel> GetAllStories()
