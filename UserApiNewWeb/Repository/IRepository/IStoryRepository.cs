@@ -9,5 +9,6 @@ namespace UserApiNewWeb.Repository.IRepository
     public interface IStoryRepository
     {
         List<Story> GetStories();
+        List<Story> GetMyStories(string id);
     }
 }

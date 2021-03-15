@@ -16,5 +16,19 @@ namespace UserApiNewWeb.Models
         public string Title { get; set; }
 
         public string MyStory { get; set; }
+
+        [StringLength(255)]
+        public string FontAwesome { get; set; }
+
+        [StringLength(100)]
+        public string BackgroundColour { get; set; }
+
+        public string UserId { get; set; }
+
+        [ForeignKey("UserId")]
+        public virtual ApplicationUser ApplicationUser { get; set; }
+
+
+
     }
 }

@@ -39,5 +39,16 @@ namespace UserApiNewWeb.Controllers
             return storiesDto;
         }
 
+        [Authorize]
+        [HttpGet]
+        [Route("api/stories/{user}")]
+        public List<StoryViewModel> GetMyStories(string user)
+        {
+            var stories = _storyRepo.GetMyStories(user);
+            var storiesDto = _imapper.Map<List<StoryViewModel>>(stories);
+
+            return storiesDto;
+        }
+
     }
 }
