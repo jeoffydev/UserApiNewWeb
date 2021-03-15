@@ -28,7 +28,7 @@ namespace UserApiNewWeb.Controllers
             return Ok("Okay Story");
         }
 
-        [Authorize]
+        
         [HttpGet]
         [Route("api/stories")]
         public List<StoryViewModel> GetAllStories()
