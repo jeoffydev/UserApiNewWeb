@@ -12,5 +12,7 @@ namespace UserApiNewWeb.Models
         public string MyStory { get; set; }
         public string FontAwesome { get; set; } 
         public string BackgroundColour { get; set; }
+
+        //public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }
