@@ -50,7 +50,7 @@ namespace UserApiNewWeb.Controllers
         [HttpGet]
         public  IActionResult  TestApi()
         {
-            return Ok("Okay to"); 
+            return Ok("Okay to edit"); 
         }
 
 
