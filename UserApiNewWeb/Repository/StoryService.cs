@@ -20,13 +20,13 @@ namespace UserApiNewWeb.Repository
         public List<Story> GetStories()
         {
             //var stories = _context.Stories.Select(sel=> new Story(){ Id = sel.Id, Title = sel.Title, MyStory = sel.MyStory } ).OrderBy(s => s.Id).ToList();
-            var stories = _context.Stories.Include(u=>u.ApplicationUser).OrderBy(s => s.Id).ToList();
+            var stories = _context.Stories.Include(u=>u.ApplicationUser).OrderByDescending(s => s.DateCreated).ToList();
             return stories;
         }
 
         public List<Story> GetMyStories(string id)
         {
-            var stories = _context.Stories.Where(u=>u.UserId == id).ToList();
+            var stories = _context.Stories.Where(u=>u.UserId == id).OrderByDescending(s => s.DateCreated).ToList();
             return stories;
         }
 

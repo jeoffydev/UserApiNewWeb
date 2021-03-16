@@ -57,6 +57,11 @@ namespace UserApiNewWeb.Controllers
         [HttpPost] 
         public  IActionResult  PostMyStory([FromBody] StoryViewModel story)
         {
+            if (story.Title == null || story.MyStory == null || story.UserId == null)
+            {
+                return BadRequest(new { error = ModelState });
+            }
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(new { error = ModelState });
@@ -68,12 +73,14 @@ namespace UserApiNewWeb.Controllers
                 MyStory = story.MyStory,
                 FontAwesome = story.FontAwesome,
                 BackgroundColour = story.BackgroundColour,
-                UserId = story.UserId
+                UserId = story.UserId,
+                DateCreated = DateTime.Now
+            
             }; 
             var writeDto = _imapper.Map<Story>(storyDto);
             _storyRepo.WriteStory(writeDto); 
 
-            return Ok("success"); 
+            return Ok( new { message="success" }); 
             
         }
 

@@ -19,6 +19,8 @@ namespace UserApiNewWeb.Models
         [Required]
         public string UserId { get; set; }
 
+        public DateTime DateCreated { get; set; }
+
         //public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }

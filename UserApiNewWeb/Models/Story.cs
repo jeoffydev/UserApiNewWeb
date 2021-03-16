@@ -25,6 +25,8 @@ namespace UserApiNewWeb.Models
 
         public string UserId { get; set; }
 
+        public DateTime DateCreated { get; set; }
+
         [ForeignKey("UserId")]
         public virtual ApplicationUser ApplicationUser { get; set; }
 
