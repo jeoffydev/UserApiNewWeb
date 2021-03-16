@@ -29,5 +29,11 @@ namespace UserApiNewWeb.Repository
             var stories = _context.Stories.Where(u=>u.UserId == id).ToList();
             return stories;
         }
+
+        public void WriteStory(Story story)
+        {
+           _context.Stories.Add(story);
+           _context.SaveChanges();
+        }
     }
 }

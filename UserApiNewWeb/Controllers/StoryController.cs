@@ -50,5 +50,34 @@ namespace UserApiNewWeb.Controllers
             return storiesDto;
         }
 
+        
+
+
+        [Route("api/stories")]
+        [HttpPost] 
+        public  IActionResult  PostMyStory([FromBody] StoryViewModel story)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new { error = ModelState });
+            }
+
+            var storyDto = new StoryViewModel()
+            {
+                Title = story.Title,
+                MyStory = story.MyStory,
+                FontAwesome = story.FontAwesome,
+                BackgroundColour = story.BackgroundColour,
+                UserId = story.UserId
+            }; 
+            var writeDto = _imapper.Map<Story>(storyDto);
+            _storyRepo.WriteStory(writeDto); 
+
+            return Ok("success"); 
+            
+        }
+
+
+
     }
 }

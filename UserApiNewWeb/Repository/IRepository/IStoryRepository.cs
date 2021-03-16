@@ -10,5 +10,6 @@ namespace UserApiNewWeb.Repository.IRepository
     {
         List<Story> GetStories();
         List<Story> GetMyStories(string id);
+        void WriteStory(Story story);
     }
 }
