@@ -179,5 +179,23 @@ namespace UserApiNewWeb.Controllers
 
         }
 
+
+        [Route("api/checkusername/{username}")]
+        [HttpGet]
+        public  bool CheckUserName(string username)
+        { 
+            if (username == null  )
+            {
+                return false;
+            } 
+
+            if (_IaccountRepo.checkUsernameExist(username))
+            {
+                return true; 
+            } 
+
+            return false;  
+        }
+
     }
 }
