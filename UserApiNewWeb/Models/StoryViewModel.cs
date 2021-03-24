@@ -21,6 +21,10 @@ namespace UserApiNewWeb.Models
 
         public DateTime DateCreated { get; set; }
 
-         public virtual ApplicationUser ApplicationUser { get; set; }
+        public int? GoogleFontsId { get; set; }
+
+        public virtual ApplicationUser ApplicationUser { get; set; }
+
+        public virtual GoogleFont GoogleFont { get; set; }
     }
 }

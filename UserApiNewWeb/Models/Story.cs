@@ -27,8 +27,13 @@ namespace UserApiNewWeb.Models
 
         public DateTime DateCreated { get; set; }
 
+        public int? GoogleFontsId { get; set; }
+
         [ForeignKey("UserId")]
         public virtual ApplicationUser ApplicationUser { get; set; }
+
+        [ForeignKey("GoogleFontsId")]
+        public virtual GoogleFont GoogleFont { get; set; }
 
 
 

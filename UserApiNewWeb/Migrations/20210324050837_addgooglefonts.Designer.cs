@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UserApiNewWeb.Data;
 
 namespace UserApiNewWeb.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210324050837_addgooglefonts")]
+    partial class addgooglefonts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -214,7 +216,7 @@ namespace UserApiNewWeb.Migrations
                     b.Property<string>("FontAwesome")
                         .HasMaxLength(255);
 
-                    b.Property<int?>("GoogleFontsId");
+                    b.Property<int>("GoogleFontId");
 
                     b.Property<string>("MyStory");
 
@@ -224,8 +226,6 @@ namespace UserApiNewWeb.Migrations
                     b.Property<string>("UserId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("GoogleFontsId");
 
                     b.HasIndex("UserId");
 
@@ -290,10 +290,6 @@ namespace UserApiNewWeb.Migrations
 
             modelBuilder.Entity("UserApiNewWeb.Models.Story", b =>
                 {
-                    b.HasOne("UserApiNewWeb.Models.GoogleFont", "GoogleFont")
-                        .WithMany()
-                        .HasForeignKey("GoogleFontsId");
-
                     b.HasOne("UserApiNewWeb.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId");

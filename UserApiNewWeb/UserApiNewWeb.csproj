@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20210324043206_addgooglefont.cs" />
+    <Compile Remove="Migrations\20210324043206_addgooglefont.Designer.cs" />
+    <Compile Remove="Migrations\20210324051823_storywithgooglefonts.cs" />
+    <Compile Remove="Migrations\20210324051823_storywithgooglefonts.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />

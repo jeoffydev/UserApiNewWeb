@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp-old\htdocs\bitbucket\2021\angular\anguproject\github\user-api\user-api\src\polyfills.ts */"hN/g");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\web\angular\user-api\src\polyfills.ts */"hN/g");
 
 
 /***/ }),

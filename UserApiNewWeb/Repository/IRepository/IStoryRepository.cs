@@ -10,6 +10,7 @@ namespace UserApiNewWeb.Repository.IRepository
     {
         List<Story> GetStories();
         List<Story> GetMyStories(string id);
-        void WriteStory(Story story);
+        void WriteStory(Story story); 
+        List<GoogleFont> GoogleFontList();
     }
 }

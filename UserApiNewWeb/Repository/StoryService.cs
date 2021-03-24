@@ -20,7 +20,7 @@ namespace UserApiNewWeb.Repository
         public List<Story> GetStories()
         {
             //var stories = _context.Stories.Select(sel=> new Story(){ Id = sel.Id, Title = sel.Title, MyStory = sel.MyStory } ).OrderBy(s => s.Id).ToList();
-            var stories = _context.Stories.Include(u=>u.ApplicationUser).OrderByDescending(s => s.DateCreated).ToList();
+            var stories = _context.Stories.Include(u=>u.ApplicationUser).Include(g=>g.GoogleFont).OrderByDescending(s => s.DateCreated).ToList();
             foreach (var s in stories)
             {
                 s.ApplicationUser.PasswordHash = null;
@@ -33,7 +33,7 @@ namespace UserApiNewWeb.Repository
 
         public List<Story> GetMyStories(string id)
         {
-            var stories = _context.Stories.Where(u=>u.UserId == id).OrderByDescending(s => s.DateCreated).ToList();
+            var stories = _context.Stories.Where(u=>u.UserId == id).Include(g => g.GoogleFont).OrderByDescending(s => s.DateCreated).ToList();
             
             return stories;
         }
@@ -42,6 +42,12 @@ namespace UserApiNewWeb.Repository
         {
            _context.Stories.Add(story);
            _context.SaveChanges();
+        }
+
+        public List<GoogleFont> GoogleFontList()
+        {
+            var googleFonts = _context.GoogleFonts.OrderByDescending(g=>g.Id).ToList();
+            return googleFonts;
         }
     }
 }

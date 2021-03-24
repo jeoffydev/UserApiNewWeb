@@ -71,7 +71,7 @@ namespace UserApiNewWeb.Controllers
             {
                 Title = story.Title,
                 MyStory = story.MyStory,
-                FontAwesome = story.FontAwesome,
+                GoogleFontsId = story.GoogleFontsId,
                 BackgroundColour = story.BackgroundColour,
                 UserId = story.UserId,
                 DateCreated = DateTime.Now
@@ -82,6 +82,15 @@ namespace UserApiNewWeb.Controllers
 
             return Ok( new { message="success" }); 
             
+        }
+
+
+        [HttpGet]
+        [Route("api/googlefonts")]
+        public List<GoogleFont> GetGoogleFonts()
+        {
+            var googleFonts = _storyRepo.GoogleFontList(); 
+            return googleFonts;
         }
 
 
