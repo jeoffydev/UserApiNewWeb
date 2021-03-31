@@ -21,11 +21,18 @@ namespace UserApiNewWeb.Repository
         {
             //var stories = _context.Stories.Select(sel=> new Story(){ Id = sel.Id, Title = sel.Title, MyStory = sel.MyStory } ).OrderBy(s => s.Id).ToList();
             var stories = _context.Stories.Include(u=>u.ApplicationUser).Include(g=>g.GoogleFont).OrderByDescending(s => s.DateCreated).ToList();
+            
             foreach (var s in stories)
             {
                 s.ApplicationUser.PasswordHash = null;
                 s.ApplicationUser.SecurityStamp = null;
-                s.ApplicationUser.ConcurrencyStamp = null; 
+                s.ApplicationUser.ConcurrencyStamp = null;
+                var getLoves = _context.Loves.Where(l => l.StoryId == s.Id).Include(u=>u.ApplicationUser).ToList();
+                foreach(var lo in getLoves)
+                {
+                    lo.ApplicationUser.PasswordHash = null;
+                }
+                s.Loves = getLoves;
 
             }
             return stories;

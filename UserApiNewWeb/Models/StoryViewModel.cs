@@ -26,5 +26,7 @@ namespace UserApiNewWeb.Models
         public virtual ApplicationUser ApplicationUser { get; set; }
 
         public virtual GoogleFont GoogleFont { get; set; }
+
+        public virtual List<Love> Loves { get; set; }
     }
 }

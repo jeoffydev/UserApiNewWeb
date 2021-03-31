@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UserApiNewWeb.Data;
 
 namespace UserApiNewWeb.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210330034455_loveAdded")]
+    partial class loveAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -212,8 +214,6 @@ namespace UserApiNewWeb.Migrations
 
                     b.HasKey("LoveId");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("Loves");
                 });
 
@@ -254,6 +254,10 @@ namespace UserApiNewWeb.Migrations
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
                     b.Property<string>("FullName");
+
+                    b.Property<int?>("UserId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("ApplicationUser");
 
@@ -305,13 +309,6 @@ namespace UserApiNewWeb.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("UserApiNewWeb.Models.Love", b =>
-                {
-                    b.HasOne("UserApiNewWeb.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-                });
-
             modelBuilder.Entity("UserApiNewWeb.Models.Story", b =>
                 {
                     b.HasOne("UserApiNewWeb.Models.GoogleFont", "GoogleFont")
@@ -320,6 +317,13 @@ namespace UserApiNewWeb.Migrations
 
                     b.HasOne("UserApiNewWeb.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("UserApiNewWeb.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("UserApiNewWeb.Models.Love")
+                        .WithMany("ApplicationUsers")
                         .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618

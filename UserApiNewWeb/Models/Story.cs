@@ -35,6 +35,9 @@ namespace UserApiNewWeb.Models
         [ForeignKey("GoogleFontsId")]
         public virtual GoogleFont GoogleFont { get; set; }
 
+        [NotMapped]
+        public virtual List<Love> Loves { get; set; }
+
 
 
     }

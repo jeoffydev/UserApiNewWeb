@@ -86,6 +86,7 @@ namespace UserApiNewWeb
 
             services.AddScoped<IAccountRepository, AccountService>();
             services.AddScoped<IStoryRepository, StoryService>();
+            services.AddScoped<ILoveRepository, LoveService>();
             services.AddAutoMapper(typeof(Mapping));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
