@@ -94,6 +94,38 @@ namespace UserApiNewWeb.Controllers
         }
 
 
+        [Authorize]
+        [HttpGet]
+        [Route("api/editstory/{id}")]
+        public StoryViewModel EditStory(int id)
+        {
+            var stories = _storyRepo.EditMyStory(id);
+            var storiesDto = _imapper.Map<StoryViewModel>(stories);
+
+            return storiesDto;
+        }
+
+        [Authorize]
+        [HttpPost]
+        [Route("api/editstory")]
+        public IActionResult EditStory([FromBody]  StoryViewModel updatestory)
+        {
+            if (ModelState.IsValid)
+            {
+                var story = _imapper.Map<Story>(updatestory);
+                var success = _storyRepo.UpdateMyStory(story);
+                if(success != null)
+                {
+                    var storyDto = _imapper.Map<StoryViewModel>(success);
+                    return Ok(storyDto);
+                }
+                return Ok(new { message = "null" });
+            }
+
+            return BadRequest(new { error = ModelState });
+        }
+
+
 
     }
 }

@@ -56,5 +56,32 @@ namespace UserApiNewWeb.Repository
             var googleFonts = _context.GoogleFonts.OrderByDescending(g=>g.Id).ToList();
             return googleFonts;
         }
+
+        public Story EditMyStory(int id)
+        {
+            var story = new Story();
+            story = _context.Stories.SingleOrDefault(s=>s.Id == id);
+            if(story != null)
+            {
+                return story;
+            }
+            return story;
+        }
+
+        public Story UpdateMyStory(Story story)
+        {
+            var findId = _context.Stories.SingleOrDefault(s => s.Id == story.Id);
+            if(findId != null)
+            {
+                findId.Title = story.Title;
+                findId.MyStory = story.MyStory;
+                findId.GoogleFontsId = story.GoogleFontsId;
+
+                _context.SaveChanges();
+
+                return findId;
+            }
+            return findId;
+        }
     }
 }

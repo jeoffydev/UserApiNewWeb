@@ -101,7 +101,7 @@ namespace UserApiNewWeb.Controllers
                              new Claim(ClaimTypes.Email, user.UserName),
                              new Claim(ClaimTypes.Role, user.Role)
 ,                         }),
-                         Expires = DateTime.UtcNow.AddHours(1),
+                         Expires = DateTime.UtcNow.AddHours(5),
                          SigningCredentials = new Microsoft.IdentityModel.Tokens.SigningCredentials(new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(key), Microsoft.IdentityModel.Tokens.SecurityAlgorithms.HmacSha256Signature)
                      };
                      var token = tokenHandler.CreateToken(tokenDescriptor);

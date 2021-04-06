@@ -12,5 +12,9 @@ namespace UserApiNewWeb.Repository.IRepository
         List<Story> GetMyStories(string id);
         void WriteStory(Story story); 
         List<GoogleFont> GoogleFontList();
+
+        Story EditMyStory(int id);
+
+        Story UpdateMyStory(Story story);
     }
 }
